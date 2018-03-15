@@ -12,32 +12,41 @@ print("Successfully loaded file!")
 import numpy as np
 import math
 from nltk.corpus import stopwords
+import re
 
+abbrevs={'excl.':'excluding','n.e.s.':'', 'e.g.': '', 'incl.': 'including', 
+         'etc.':'', '[L.]':'', 'n.e.s':'', 'max.': 'maximum'}
+##maybe replace numbers???
 
 class PhraseVector:
-	def __init__(self, phrase):
-		self.vector = self.PhraseToVec(phrase)
+    def __init__(self, phrase):
+        self.vector = self.PhraseToVec(phrase)
 	# Calculates similarity between two sentences (= two  sets of vectors) based on the averages of the sets.
 	#"ignore"  = "The vectors within the set that need to be ignored. If this is an empty list, nothing is ignored. 
 	# returns the condensed single vector that has the same dimensionality as the other vectors within the vecotSet
 	def ConvertVectorSetToVecAverageBased(self, vectorSet, ignore = []):
-		if len(ignore) == 0: 
-			return np.mean(vectorSet, axis = 0)
-		else: 
-			return np.dot(np.transpose(vectorSet),ignore)/sum(ignore)
+        if len(ignore) == 0: 
+            return np.mean(vectorSet, axis = 0)
+        else: 
+            return np.dot(np.transpose(vectorSet),ignore)/sum(ignore)
 
 	def PhraseToVec(self, phrase):
-		cachedStopWords = stopwords.words("english")
-		phrase = phrase.lower()
-		wordsInPhrase = [word for word in phrase.split() if word not in cachedStopWords]
-		vectorSet = []
-		for aWord in wordsInPhrase:
-			try:
-				wordVector=MODEL[aWord]
-				vectorSet.append(wordVector)
-			except:
-				pass
-		return self.ConvertVectorSetToVecAverageBased(vectorSet)
+        cachedStopWords = stopwords.words("english")
+        phrase = phrase.lower()
+        for text in abbrevs:
+            phrase= phrase.replace(text,abbrevs[text])
+        phrase = re.sub(r'[^\w\s]','', phrase)
+        phrase = re.sub(r'[*\d]', '', phrase)
+        phrase = phrase.replace('  ', ' ')
+        wordsInPhrase = [word for word in phrase.split() if word not in cachedStopWords]
+        vectorSet = []
+        for aWord in wordsInPhrase:
+            try:
+                wordVector=MODEL[aWord]
+                vectorSet.append(wordVector)
+            except:
+                pass
+        return self.ConvertVectorSetToVecAverageBased(vectorSet)
 
 	def CosineSimilarity(self, otherPhraseVec):
 		cosine_similarity = np.dot(self.vector, otherPhraseVec) / (np.linalg.norm(self.vector) * np.linalg.norm(otherPhraseVec))
