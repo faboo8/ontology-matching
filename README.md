@@ -2,4 +2,4 @@
 
 Idea: two ontologies, pass a product from one and calculate the similarity to ALL the ones from the other -> top 10 choices?
 
-With this module you can use pre-trained model or - if you have enought data - generate your own from scratch. A collectiond of recommended ready-to-use models can be found [here] (http://ahogrammer.com/2017/01/20/the-list-of-pretrained-word-embeddings/).
+With this module you can use pre-trained model or - if you have enought data - generate your own from scratch. A collectiond of recommended ready-to-use models can be found [here] (http://ahogrammer.com/2017/01/20/the-list-of-pretrained-word-embeddings).
