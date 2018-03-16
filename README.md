@@ -10,6 +10,8 @@ There's several options available to build your own model based on a term-freque
 * Latent Dirichlet Allocation (LDA)
 * Hierarchical Dirichlet Process (HDP)
 
-To dtermine similarity between two phrases the cosine similaity is used:
+To determine similarity between two phrases the cosine similaity is used:
+
+![alt text][media/CodeCogsEqn.gif]
 
 
