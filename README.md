@@ -1,6 +1,6 @@
 # ontology-matching
 
-Idea: two ontologies, pass a product from one and calculate the similarity to ALL the ones from the other -> top 10 choices?
+Idea: two ontologies, pass a product from one and calculate the similarity to all the ones from the other. The goal is to have a n:1 matching with minimal user input.
 
 With this module you can use pre-trained model or - if you have enought data - generate your own from scratch. A collectiond of recommended ready-to-use models can be found [here](http://ahogrammer.com/2017/01/20/the-list-of-pretrained-word-embeddings).
 
