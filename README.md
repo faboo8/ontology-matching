@@ -10,8 +10,8 @@ There's several options available to build your own model based on a term-freque
 * Latent Dirichlet Allocation (LDA)
 * Hierarchical Dirichlet Process (HDP)
 
-To determine similarity between two phrases the cosine similaity is used:
+To determine similarity between two phrases the cosine similarity 
 
   ![eq1](https://github.com/faboo8/ontology-matching/blob/master/media/CodeCogsEqn.gif)
 
-
+is used although this might not be the best for probabilistic models. 
