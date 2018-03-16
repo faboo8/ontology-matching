@@ -15,3 +15,5 @@ To determine similarity between two phrases the cosine similarity
   ![eq1](https://github.com/faboo8/ontology-matching/blob/master/media/CodeCogsEqn.gif)
 
 is used although this might not be the best for probabilistic models. 
+
+However, pre-trained as well as models trained from texts disregard semantic similarity e.g. cat <-> feline. Thus a similarity measure using [WordNet](https://wordnet.princeton.edu/) is implemented.
