@@ -12,6 +12,6 @@ There's several options available to build your own model based on a term-freque
 
 To determine similarity between two phrases the cosine similaity is used:
 
-          ![eq1](https://github.com/faboo8/ontology-matching/blob/master/media/CodeCogsEqn.gif)
+![eq1](https://github.com/faboo8/ontology-matching/blob/master/media/CodeCogsEqn.gif)
 
 
