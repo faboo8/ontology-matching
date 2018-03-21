@@ -1,8 +1,9 @@
 import warnings
 warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
+warnings.filterwarnings(action='ignore', category= RuntimeWarning, module='numpy')
 from gensim.models import KeyedVectors
 from gensim import corpora, models, similarities
-
+import tqdm
 
 
 import numpy as np
@@ -104,8 +105,8 @@ def sentence_similarity(sentence1, sentence2):
     # Get the synsets for the tagged words
     #synsets1 = [item for sublist in [wordnet.synsets(word) for word in sentence1] for item in sublist]
     #synsets2 = [item for sublist in [wordnet.synsets(word) for word in sentence2] for item in sublist]
-    synsets1 = [wordnet.synsets(word)[0] for word in sentence1]
-    synsets2 = [wordnet.synsets(word)[0] for word in sentence2] 
+    synsets1 = [wordnet.synsets(word)[0] for word in sentence1 if wordnet.synsets(word) != []]
+    synsets2 = [wordnet.synsets(word)[0] for word in sentence2 if wordnet.synsets(word) != []] 
     # Filter out the Nones
     synsets1 = [ss for ss in synsets1 if ss]
     synsets2 = [ss for ss in synsets2 if ss]
@@ -125,8 +126,10 @@ def sentence_similarity(sentence1, sentence2):
                 score += best
                 count += 1
  
-    # Average the values
-    score /= count
+    if count != 0:# Average the values
+        score /= count
+    else:
+        score = 0
     return score
 """
 use weight for sentence_similarity:
@@ -208,8 +211,8 @@ class PhraseVector:
                 pass
         return self.ConvertVectorSetToVecAverageBased(vectorSet)
     
-    def CosineSimilarity(self, otherPhraseVec):
-        cosine_similarity = np.dot(self.vector, otherPhraseVec) / (np.linalg.norm(self.vector) * np.linalg.norm(otherPhraseVec))
+    def CosineSimilarity(self, other):
+        cosine_similarity = np.dot(self.vector, other.vector) / (np.linalg.norm(self.vector) * np.linalg.norm(other.vector))
         try:
             if math.isnan(cosine_similarity):
                 	cosine_similarity=0
@@ -218,8 +221,8 @@ class PhraseVector:
             cosine_similarity=0		
         return cosine_similarity
     
-    def WordNetSimlarity(self, otherPhraseVec):
-        return sentence_similarity_symmetric(self.phrase, otherPhraseVec)
+    def WordNetSimilarity(self, other):
+        return sentence_similarity_symmetric(self.phrase, other.phrase)
            
     def PhraseCompare(self,model,dictionary):
         phrase, str_phrase = preprocessing_phrase(self.phrase)
@@ -232,10 +235,13 @@ class PhraseVector:
         sims = sorted(enumerate(sims))
         return sims
     
-    def CombinedSimilarity(self, otherPhraseVec, weights = [0.5,0.5]):
-        sim1 = self.CosineSimilarity(self, otherPhraseVec)
-        sim2 = self.WordNetSimlarity(self, otherPhraseVec)
-        return (weights[0]*sim1 + weights[1]*sim2)/2.0
+    def CombinedSimilarity(self,other, weights = [0.8,0.2]):
+        sim1 = self.CosineSimilarity(other)
+        sim2 = self.WordNetSimilarity(other)
+        return (weights[0]*sim1 + weights[1]*sim2)
+    
+    def __str__(self):
+        return self.phrase
             
             
 #### document = [[word1, word2,....], [vword1, vword2,...],...]   
