@@ -33,8 +33,8 @@ print("Successfully loaded file!")
 ##############################################################################
 
 
-abbrevs={'excl.':'excluding','n.e.s.':'', 'e.g.': '', 'incl.': 'including', 
-         'etc.':'', '[L.]':'', 'n.e.s':'', 'max.': 'maximum', 'kg':'kilograms'}
+abbrevs={'excl.':'','n.e.s.':'', 'e.g.': '', 'incl.': '', 
+         'etc.':'', '[L.]':'', 'n.e.s':'', 'max.': 'maximum', 'kg':'', 'containing': ''}
 ## replace numbers???
 cachedStopWords = stopwords.words("english")
 
@@ -87,9 +87,10 @@ for entry in df2:
 pd_full = pd.concat([df1,df2])
 
 document = preprocessing_doc(pd_full)
+#document = [[y for x in document for y in x]]
 dict1 = corpora.Dictionary(document)
 corpus1 = [dict1.doc2bow(text) for text in document]
-tf_model = models.TfidfModel(corpus1)
+tf_model = models.TfidfModel(corpus1, id2word=dict1)
 d = {dict1.get(id): value for document in tf_model[corpus1] for id, value in document}
 
 ##############################################################################
@@ -122,7 +123,6 @@ def sentence_similarity(sentence1, sentence2):
             if simi_score is not None:
                 arr_simi_score.append(simi_score)
                 best = max(arr_simi_score)
-                #better use weights: d = {dictionary.get(id): value for doc in corpus_tfidf for id, value in doc}
                 score += best
                 count += 1
  
@@ -131,17 +131,9 @@ def sentence_similarity(sentence1, sentence2):
     else:
         score = 0
     return score
-"""
-problem: max() excludes words that are rare but important in sentences with eg frozen!
-use weight for sentence_similarity:
-tfidf = gensim.models.tfidfmodel.TfidfModel(corpus)
-corpus_tfidf = tfidf[corpus]
-d = {}
-for doc in corpus_tfidf:
-    for id, value in doc:
-        word = dictionary.get(id)
-        d[word] = value
-"""
+
+#problem: max() excludes words that are rare but important in sentences with eg frozen!
+#use weight for sentence_similarity:
 
 
 #sentence_similarity is not a symmetruc function i.e. f(a.b) != f(b,a)
@@ -237,6 +229,9 @@ class PhraseVector:
         return sims
     
     def CombinedSimilarity(self,other, weights = [0.8,0.2]):
+        if sum(weights) !=1:
+            print('Weights must add to one! Normalizing...')
+            weights = [weight/sum(weights) for weight in weights]
         sim1 = self.CosineSimilarity(other)
         sim2 = self.WordNetSimilarity(other)
         return (weights[0]*sim1 + weights[1]*sim2)
@@ -284,7 +279,7 @@ class BuildModel:
         
         
         
-vec1 = PhraseVector(df1[789])
+vec1 = PhraseVector(df1[9238])
 list1, list2, list3= [], [], []
 for line in tqdm.tqdm(iterable = df2):
     line_obj= PhraseVector(line)
