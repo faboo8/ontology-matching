@@ -132,6 +132,7 @@ def sentence_similarity(sentence1, sentence2):
         score = 0
     return score
 """
+problem: max() excludes words that are rare but important in sentences with eg frozen!
 use weight for sentence_similarity:
 tfidf = gensim.models.tfidfmodel.TfidfModel(corpus)
 corpus_tfidf = tfidf[corpus]
@@ -280,7 +281,32 @@ class BuildModel:
     @staticmethod    
     def AddCorpus(model, another_corpus):
         model.add_documents(another_corpus)
+        
+        
+        
+vec1 = PhraseVector(df1[789])
+list1, list2, list3= [], [], []
+for line in tqdm.tqdm(iterable = df2):
+    line_obj= PhraseVector(line)
+    list1.append(vec1.CombinedSimilarity(line_obj))
+    list2.append(vec1.CosineSimilarity(line_obj))
+    list3.append(vec1.WordNetSimilarity(line_obj))
+    
+list1 = pd.Series(list1).sort_values(ascending=False)
+list2 = pd.Series(list2).sort_values(ascending=False)
+list3 = pd.Series(list3).sort_values(ascending=False)
 
+labels1 = [df2[x]  for x in list1.head(10).index]
+labels2 = [df2[x]  for x in list2.head(10).index]
+labels3 = [df2[x]  for x in list3.head(10).index]
+
+#index_max1 = max(range(len(list1)), key=list1.__getitem__)
+#index_max2 = max(range(len(list2)), key=list2.__getitem__)
+#index_max3 = max(range(len(list3)), key=list3.__getitem__)
+print('Matches for <{}>'.format(vec1))
+print(labels1)
+print(labels2)
+print(labels3)
 
 
 
