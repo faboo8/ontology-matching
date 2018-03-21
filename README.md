@@ -1,14 +1,10 @@
 # ontology-matching
 
-Idea: two ontologies, pass a product from one and calculate the similarity to all the ones from the other. The goal is to have a n:1 matching with minimal user input. A threshold for the similarity shall be defined under which additional user input is required.
+**Idea**: two ontologies, pass a product from one and calculate the similarity to all the ones from the other. The goal is to have a n:1 matching with minimal user input. A threshold for the similarity shall be defined under which additional user input is required.
 
 With this module you can use pre-trained model or - if you have enough data - generate your own from scratch. A collectiond of recommended ready-to-use models can be found [here](http://ahogrammer.com/2017/01/20/the-list-of-pretrained-word-embeddings).
 
-There's several options available to build your own model based on a term-frequency model. These are:
-* Latent Semantic Indexing (LSI)
-* Random Projections (RP)
-* Latent Dirichlet Allocation (LDA)
-* Hierarchical Dirichlet Process (HDP)
+## Computing similarities
 
 To determine similarity between two phrases the cosine similarity 
 
@@ -20,7 +16,17 @@ However, pre-trained as well as models trained from texts disregard semantic sim
 
 
 The PhraseVector class offers 4 ways to compute the similarity between two phrases:
-* CosineSimilarity:  can be seen as a comparison between documents on a normalized space because we’re not taking into the consideration only the magnitude of each word count (tf-idf) of each document, but the 'angle' between the documents.
-* WordNetSimilarity: as described above
-* PhraseCompare: not yet functional but it will allow the user to input their own model and perform a similarity calculation with the methods from the gensim module.
-* CombinedSimilarity: computes an averaged similarity measure of CosineSimilarity and WordNetSimilarity. A list can be passed as the weight otherwise [0.8,0.2] will be used. 
+* **CosineSimilarity**:  can be seen as a comparison between documents on a normalized space because we’re not taking into the consideration only the magnitude of each word count (tf-idf) of each document, but the 'angle' between the documents.
+* **WordNetSimilarity**: as described above
+* **PhraseCompare**: not yet functional but it will allow the user to input their own model and perform a similarity calculation with the methods from the gensim module.
+* **CombinedSimilarity**: computes an averaged similarity measure of CosineSimilarity and WordNetSimilarity. A list can be passed as the weight otherwise [0.8,0.2] will be used. 
+
+## Building your own model 
+
+There's several options available to build your own model based on a term-frequency model. These are:
+* Latent Semantic Indexing (LSI)
+* Random Projections (RP)
+* Latent Dirichlet Allocation (LDA)
+* Hierarchical Dirichlet Process (HDP)
+
+This feature is still being implemented and isn't fully functional yet. 
