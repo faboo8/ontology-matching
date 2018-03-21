@@ -17,3 +17,10 @@ To determine similarity between two phrases the cosine similarity
 is used although this might not be the best for probabilistic models. 
 
 However, pre-trained as well as models trained from texts disregard semantic similarity e.g. cat <-> feline. Thus a similarity measure using [WordNet](https://wordnet.princeton.edu/) is implemented. So far I'm using a maximum similarity approach using the Wu & Palmer similarity (more info [here](http://search.cpan.org/dist/WordNet-Similarity/lib/WordNet/Similarity/wup.pm)) since it worked well with the data I'm working on. In the future I want to use the weights from the inverse document frequency (similar to [here](https://nlpforhackers.io/tf-idf/)) but I haven't worked out the kinks yet.
+
+
+The PhraseVector class offers 4 ways to compute the similarity between two phrases:
+* CosineSimilarity:  can be seen as a comparison between documents on a normalized space because we’re not taking into the consideration only the magnitude of each word count (tf-idf) of each document, but the 'angle' between the documents.
+* WordNetSimilarity: as described above
+* PhraseCompare: not yet functional but it will allow the user to input their own model and perform a similarity calculation with the methods from the gensim module.
+* CombinedSimilarity: computes an averaged similarity measure of CosineSimilarity and WordNetSimilarity. A list can be passed as the weight otherwise [0.8,0.2] will be used. 
