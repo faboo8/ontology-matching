@@ -36,4 +36,4 @@ This feature is still being implemented and isn't fully functional yet.
 
 - [ ] Rewrite WordNetSimilarity to use weights
 - [ ] Make building your own model functional
-- [ ] Define a procedure to dtermine the 'best' weights for CombinedSimilarity (training set needed)
+- [ ] Define a procedure to determine the 'best' weights for CombinedSimilarity (training set needed)
