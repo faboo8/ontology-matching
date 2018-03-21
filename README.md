@@ -14,7 +14,10 @@ With this module you can use pre-trained model or - if you have enough data - ge
 
 To determine similarity between two phrases the cosine similarity 
 
-  ![eq1](https://github.com/faboo8/ontology-matching/blob/master/media/CodeCogsEqn.gif)
+<p align="center">
+  <img src="https://github.com/faboo8/ontology-matching/blob/master/media/CodeCogsEqn.gif" alt="eq1"/>
+</p>
+
 
 is used although this might not be the best for probabilistic models. 
 
