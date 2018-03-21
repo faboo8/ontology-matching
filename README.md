@@ -2,7 +2,7 @@
 
 **Idea**: two ontologies, pass a product from one and calculate the similarity to all the ones from the other. The goal is to have a n:1 matching with minimal user input. A threshold for the similarity shall be defined under which additional user input is required.
 
-With this module you can use pre-trained model or - if you have enough data - generate your own from scratch. A collectiond of recommended ready-to-use models can be found [here](http://ahogrammer.com/2017/01/20/the-list-of-pretrained-word-embeddings).
+With this module you can use pre-trained model or - if you have enough data - generate your own from scratch. A collectiond of recommended ready-to-use models can be found [here](http://ahogrammer.com/2017/01/20/the-list-of-pretrained-word-embeddings). Per default Google's Word2Vec model is used. 
 
 ## Computing similarities
 
@@ -30,3 +30,9 @@ There's several options available to build your own model based on a term-freque
 * Hierarchical Dirichlet Process (HDP)
 
 This feature is still being implemented and isn't fully functional yet. 
+
+## Tasks
+
+- [ ] Rewrite WordNetSimilarity to use weights
+- [ ] Make building your own model functional
+- [ ] Define a procedure to dtermine the 'best' weights for CombinedSimilarity (training set needed)
