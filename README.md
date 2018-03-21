@@ -1,5 +1,5 @@
 # ontology-matching
-  ![ont1](https://github.com/faboo8/ontology-matching/blob/master/media/ont.png)
+  ![ont1](https://github.com/faboo8/ontology-matching/blob/master/media/0.jpg)
   
   
 **Idea**: 
