@@ -3,6 +3,20 @@ warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
 from gensim.models import KeyedVectors
 from gensim import corpora, models, similarities
 
+
+
+import numpy as np
+import math
+from nltk.corpus import stopwords, wordnet
+import re
+import pandas as pd
+
+
+##############################################################################
+##############################LOADING DATA####################################
+##############################################################################
+
+
 pathToBinVectors = 'C:\\Users\DE104752\\Documents\\word2vec_pretrained\\google.bin'
 
 print("Loading the data file... Please wait...")
@@ -12,12 +26,6 @@ print("Successfully loaded file!")
 
 # How to call one word vector?
 # MODEL['resume'] -> This will return NumPy vector of the word "resume".
-
-import numpy as np
-import math
-from nltk.corpus import stopwords, wordnet
-import re
-import pandas as pd
 
 ##############################################################################
 ##############################PREPROCESSING###################################
@@ -58,14 +66,30 @@ def preprocessing_phrase(phrase):
 
 df_client = pd.read_excel('ARIBA/Warennummern Englisch.xlsx')
 df1 = df_client['DESCRIP']
+
+df1_as_list = ''
+for entry in df1:
+    df1_as_list += ' '+ entry
+    
+    
 df_unspsc = pd.read_excel('ARIBA/UNSPSC_Auswahl für DBS.xlsx',skiprows=0)
 df_unspsc = df_unspsc.iloc[:,0:4]
 df_unspsc.columns= ['domain', 'nrel', 'code', 'DESCRIP']
 df_unspsc.drop('domain', inplace=True, axis=1)
 df2 = df_unspsc['DESCRIP']
+
+df2_as_list = ''
+for entry in df2:
+    df2_as_list += ' ' + entry
+
+
 pd_full = pd.concat([df1,df2])
 
 document = preprocessing_doc(pd_full)
+dict1 = corpora.Dictionary(document)
+corpus1 = [dict1.doc2bow(text) for text in document]
+tf_model = models.TfidfModel(corpus1)
+d = {dict1.get(id): value for document in tf_model[corpus1] for id, value in document}
 
 ##############################################################################
 ##############################################################################
@@ -91,6 +115,7 @@ def sentence_similarity(sentence1, sentence2):
     #For each word in the first sentence
     arr_simi_score = []
     for syn1 in synsets1:
+        
         for syn2 in synsets2:
             simi_score = syn1.wup_similarity(syn2)
             if simi_score is not None:
@@ -115,8 +140,10 @@ for doc in corpus_tfidf:
 """
 
 
+#sentence_similarity is not a symmetruc function i.e. f(a.b) != f(b,a)
+
 def sentence_similarity_symmetric(sentence1, sentence2):
-    return (sentence_similarity(sentence1, sentence2) + sentence_similarity(sentence2, sentence1)) / 2 
+    return (sentence_similarity(sentence1, sentence2) + sentence_similarity(sentence2, sentence1))/2.0 
 
 
 
@@ -128,6 +155,7 @@ def sentence_similarity_symmetric(sentence1, sentence2):
 class PhraseVector:
     def __init__(self, phrase):
         self.vector = self.PhraseToVec(phrase)
+        self.phrase =phrase
     # Calculates similarity between two sentences (= two  sets of vectors) based on the averages of the sets.
     #"ignore"  = "The vectors within the set that need to be ignored. If this is an empty list, nothing is ignored. 
     # returns the condensed single vector that has the same dimensionality as the other vectors within the vecotSet
@@ -190,6 +218,9 @@ class PhraseVector:
             cosine_similarity=0		
         return cosine_similarity
     
+    def WordNetSimlarity(self, otherPhraseVec):
+        return sentence_similarity_symmetric(self.phrase, otherPhraseVec)
+           
     def PhraseCompare(self,model,dictionary):
         phrase, str_phrase = preprocessing_phrase(self.phrase)
         index = similarities.MatrixSimilarity(model)
@@ -200,6 +231,11 @@ class PhraseVector:
         sims= index[vec_model]
         sims = sorted(enumerate(sims))
         return sims
+    
+    def CombinedSimilarity(self, otherPhraseVec, weights = [0.5,0.5]):
+        sim1 = self.CosineSimilarity(self, otherPhraseVec)
+        sim2 = self.WordNetSimlarity(self, otherPhraseVec)
+        return (weights[0]*sim1 + weights[1]*sim2)/2.0
             
             
 #### document = [[word1, word2,....], [vword1, vword2,...],...]   
