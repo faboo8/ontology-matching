@@ -40,6 +40,9 @@ There's several options available to build your own model based on a term-freque
 
 This feature is still being implemented and isn't fully functional yet. 
 
+## How to use
+TODO
+
 ## Tasks
 In order of importance:
 - [ ] Make use of the different hierarchies of the ontologies
