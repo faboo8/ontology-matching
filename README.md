@@ -1,5 +1,7 @@
 # ontology-matching
   ![ont1](https://github.com/faboo8/ontology-matching/blob/master/media/ont.png)
+  
+  
 **Idea**: 
 I have two ontologies (or more general two lists) and want to match the entries from the first to the second. IN order to do this, I pass an entry from one and calculate the similarity to all the ones from the other. The goal is to have an *n*:1 matching with minimal user input. A threshold for the similarity shall be defined under which additional user input is required (that should be dependent on how likely the next best matches are).
 
