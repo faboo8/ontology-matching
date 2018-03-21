@@ -41,7 +41,9 @@ There's several options available to build your own model based on a term-freque
 This feature is still being implemented and isn't fully functional yet. 
 
 ## Tasks
-
-- [ ] Rewrite WordNetSimilarity to use weights (returns 1.0 too often)
-- [ ] Make building your own model functional
+In order of importance:
+- [ ] Make use of the different hierarchies of the ontologies
 - [ ] Define a procedure to determine the 'best' weights for CombinedSimilarity (training set needed)
+- [ ] Make building your own model functional
+- [ ] Rewrite WordNetSimilarity to use weights (returns 1.0 too often)
+
