@@ -1,7 +1,7 @@
 # ontology-matching
 
 
-p align="center">
+<p align="center">
   <img src="https://github.com/faboo8/ontology-matching/blob/master/media/0.jpg" alt="sign"/>
 </p>
   
