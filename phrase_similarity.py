@@ -33,7 +33,7 @@ print("Successfully loaded file!")
 ##############################################################################
 
 
-abbrevs={'excl.':'','n.e.s.':'', 'e.g.': '', 'incl.': '', 
+abbrevs={'excl.':'','n.e.s.':'', 'e.g.': '', 'incl.': '', 'subheading': '',
          'etc.':'', '[L.]':'', 'n.e.s':'', 'max.': 'maximum', 'kg':'', 'containing': ''}
 ## replace numbers???
 cachedStopWords = stopwords.words("english")
@@ -278,8 +278,8 @@ class BuildModel:
         model.add_documents(another_corpus)
         
         
-        
-vec1 = PhraseVector(df1[9238])
+"""      
+vec1 = PhraseVector(df1[4999])
 list1, list2, list3= [], [], []
 for line in tqdm.tqdm(iterable = df2):
     line_obj= PhraseVector(line)
@@ -302,9 +302,57 @@ print('Matches for <{}>'.format(vec1))
 print(labels1)
 print(labels2)
 print(labels3)
+"""
+"""
+from multiprocessing.pool import ThreadPool as Pool
+global d
+d = {}
+def find_matches(el):
+    vec1 = PhraseVector(el)
+    list1, list2, list3= [], [], []
+    for line in df2:
+        line_obj= PhraseVector(line)
+        list1.append(vec1.CombinedSimilarity(line_obj))
+        list2.append(vec1.CosineSimilarity(line_obj))
+        list3.append(vec1.WordNetSimilarity(line_obj))
+    
+    list1 = pd.DataFrame(list1, columns= ['sim_score']).sort_values(by ='sim_score', ascending=False).head(5)
+    list2 = pd.DataFrame(list2, columns= ['sim_score']).sort_values(by ='sim_score', ascending=False).head(5)
+    list3 = pd.DataFrame(list3, columns= ['sim_score']).sort_values(by ='sim_score', ascending=False).head(5)
+    list1['name'] = [df2[x]  for x in list1.index]
+    list2['name'] = [df2[x]  for x in list2.index]
+    list3['name'] = [df2[x]  for x in list3.index]
+    d[el] = [list1, list2, list3]
 
+pool = Pool(8)
+for el in df1:
+    pool.apply_async(find_matches, (el,))
 
+pool.close()
+pool.join()
+"""
+if __name__ == "__main__":
+    d = {}
+    for el in tqdm.tqdm(iterable=df1[:10], ascii = True):
+        vec1 = PhraseVector(el)
+        list1, list2, list3= [], [], []
+        for line in tqdm.tqdm(iterable = df2, ascii = True):
+            line_obj= PhraseVector(line)
+            list1.append(vec1.CombinedSimilarity(line_obj))
+            list2.append(vec1.CosineSimilarity(line_obj))
+            list3.append(vec1.WordNetSimilarity(line_obj))
+    
+        list1 = pd.DataFrame(list1, columns= ['sim_score']).sort_values(by ='sim_score', ascending=False).head(5)
+        list2 = pd.DataFrame(list2, columns= ['sim_score']).sort_values(by ='sim_score', ascending=False).head(5)
+        list3 = pd.DataFrame(list3, columns= ['sim_score']).sort_values(by ='sim_score', ascending=False).head(5)
 
+        list1['name'] = [df2[x]  for x in list1.index]
+        list2['name'] = [df2[x]  for x in list2.index]
+        list3['name'] = [df2[x]  for x in list3.index]
+        d[el] = [list1, list2, list3]
+    print(d)
+
+'''
 if __name__ == "__main__":
 	print(""
        ######## WELCOME TO THE PHRASE SIMILARITY CALCULATOR ############
@@ -318,3 +366,4 @@ if __name__ == "__main__":
 		similarityScore  = phraseVector1.CosineSimilarity(phraseVector2.vector)
 
 		print("Similarity Score: {} ".format(similarityScore))
+'''
