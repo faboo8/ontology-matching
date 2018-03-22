@@ -54,6 +54,7 @@ gesim, tqdm, numpy, nltk, pandas. Only tested with Python 3.6.
 ## Tasks
 In order of importance:
 - [ ] Make use of the different hierarchies of the ontologies
+- [ ] Make user input easier
 - [ ] Define a procedure to determine the 'best' weights for CombinedSimilarity (training set needed)
 - [ ] Make building your own model functional
 - [ ] Rewrite WordNetSimilarity to use weights (returns 1.0 too often)
