@@ -41,7 +41,16 @@ There's several options available to build your own model based on a term-freque
 This feature is still being implemented and isn't fully functional yet. 
 
 ## How to use
-TODO
+
+So far this module works with pandas DataFrames hardcoded in the script. Save the two lists/ontologies as as a dataframe and run the following command in the terminal:
+
+`python phrase_similarity.py`
+
+## Dependencies
+
+gesim, tqdm, numpy, nltk, pandas
+Only tested with Python 3.6
+
 
 ## Tasks
 In order of importance:
