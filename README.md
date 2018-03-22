@@ -55,7 +55,7 @@ gensim 3.4, tqdm 4.19.5, numpy 1.9.3, nltk 3.2.5, pandas 0.22, python 3.63
 ## Tasks
 In order of importance:
 - [ ] Make use of the different hierarchies of the ontologies
-- [ ] Make user input easier
+- [ ] Make user input accessible via terminal
 - [ ] Allow for multithreading
 - [ ] Define a procedure to determine the 'best' weights for CombinedSimilarity (training set needed)
 - [ ] Make building your own model functional
