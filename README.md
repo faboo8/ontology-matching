@@ -48,8 +48,7 @@ So far this module works with pandas DataFrames hardcoded in the script. Save th
 
 ## Dependencies
 
-gesim, tqdm, numpy, nltk, pandas
-Only tested with Python 3.6
+gesim, tqdm, numpy, nltk, pandas. Only tested with Python 3.6.
 
 
 ## Tasks
