@@ -42,7 +42,7 @@ This feature is still being implemented and isn't fully functional yet.
 
 ## How to use
 
-So far this module works with pandas DataFrames hardcoded in the script. Save the two lists/ontologies as as a dataframe and run the following command in the terminal:
+So far this module works with pandas DataFrames hardcoded in the script. Save the two lists/ontologies as as dataframe df1 and df2 and run the following command in the terminal:
 
 `python phrase_similarity.py`
 
