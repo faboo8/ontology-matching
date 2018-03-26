@@ -13,16 +13,16 @@ import re
 import pandas as pd
 
 
+
 ##############################################################################
 ##############################LOADING DATA####################################
 ##############################################################################
 
+#pathToBinVectors = 'C:\\Users\DE104752\\Documents\\word2vec_pretrained\\google.bin'
 
-pathToBinVectors = 'C:\\Users\DE104752\\Documents\\word2vec_pretrained\\google.bin'
-
-print("Loading the data file... Please wait...")
-MODEL = KeyedVectors.load_word2vec_format(pathToBinVectors, binary=True)
-print("Successfully loaded file!")
+#print("Loading the data file... Please wait...")
+#MODEL = KeyedVectors.load_word2vec_format(pathToBinVectors, binary=True)
+#print("Successfully loaded file!")
 
 
 # How to call one word vector?
@@ -104,10 +104,10 @@ def sentence_similarity(sentence1, sentence2):
     sentence2,_ = preprocessing_phrase(sentence2)
  
     # Get the synsets for the tagged words
-    #synsets1 = [item for sublist in [wordnet.synsets(word) for word in sentence1] for item in sublist]
-    #synsets2 = [item for sublist in [wordnet.synsets(word) for word in sentence2] for item in sublist]
     synsets1 = [wordnet.synsets(word)[0] for word in sentence1 if wordnet.synsets(word) != []]
     synsets2 = [wordnet.synsets(word)[0] for word in sentence2 if wordnet.synsets(word) != []] 
+    
+    
     # Filter out the Nones
     synsets1 = [ss for ss in synsets1 if ss]
     synsets2 = [ss for ss in synsets2 if ss]
@@ -132,11 +132,12 @@ def sentence_similarity(sentence1, sentence2):
         score = 0
     return score
 
+
 #problem: max() excludes words that are rare but important in sentences with eg frozen!
 #use weight for sentence_similarity:
 
 
-#sentence_similarity is not a symmetruc function i.e. f(a.b) != f(b,a)
+#sentence_similarity is not a symmetruc function i.e. f(a.b) != f(b,a), thus define new function
 
 def sentence_similarity_symmetric(sentence1, sentence2):
     return (sentence_similarity(sentence1, sentence2) + sentence_similarity(sentence2, sentence1))/2.0 
@@ -145,33 +146,33 @@ def sentence_similarity_symmetric(sentence1, sentence2):
 
 
 
-        
-
 
 class PhraseVector:
     def __init__(self, phrase):
         self.vector = self.PhraseToVec(phrase)
         self.phrase =phrase
-    # Calculates similarity between two sentences (= two  sets of vectors) based on the averages of the sets.
-    #"ignore"  = "The vectors within the set that need to be ignored. If this is an empty list, nothing is ignored. 
-    # returns the condensed single vector that has the same dimensionality as the other vectors within the vecotSet
+
     
     @staticmethod
-    def LoadModel(sel):
+    def LoadModel(sel =1):
         if sel ==1:
             pathToBinVectors = 'C:\\Users\DE104752\\Documents\\word2vec_pretrained\\google.bin'
-            print("Loading the data file... Please wait...")
-            MODEL = KeyedVectors.load_word2vec_format(pathToBinVectors, binary=True,)
-            print("Successfully loaded file!")
+            print("Loading the data file... Please wait a bit... :)")
+            MODEL = KeyedVectors.load_word2vec_format(pathToBinVectors, binary=True)
+            print("Successfully loaded file! Yay!")
         elif sel == 2:
-            pathToBinVectors = 'C:\\Users\DE104752\\Documents\\word2vec_pretrained\\glove.txt'
-            print("Loading the data file... Please wait...")
+            pathToBinVectors = 'C:\\Users\DE104752\\Documents\\word2vec_pretrained\\glove_conv.txt'
+            print("Loading the data file... Please wait... this is super slow")
             MODEL = KeyedVectors.load_word2vec_format(pathToBinVectors)
             print("Successfully loaded file!")    
+        return MODEL
         
     
     
     def ConvertVectorSetToVecAverageBased(self, vectorSet, ignore = []):
+        # Calculates similarity between two sentences (= two  sets of vectors) based on the averages of the sets.
+        #"ignore"  = "The vectors within the set that need to be ignored. If this is an empty list, nothing is ignored. 
+        # returns the condensed single vector that has the same dimensionality as the other vectors within the vecotSet
         if len(ignore) == 0:
             return np.mean(vectorSet, axis = 0)
         else: 
@@ -205,6 +206,7 @@ class PhraseVector:
         return self.ConvertVectorSetToVecAverageBased(vectorSet)
     
     def CosineSimilarity(self, other):
+        #calcultes the cosine similarity based on the vectors from MODEL
         cosine_similarity = np.dot(self.vector, other.vector) / (np.linalg.norm(self.vector) * np.linalg.norm(other.vector))
         try:
             if math.isnan(cosine_similarity):
@@ -278,31 +280,7 @@ class BuildModel:
         model.add_documents(another_corpus)
         
         
-"""      
-vec1 = PhraseVector(df1[4999])
-list1, list2, list3= [], [], []
-for line in tqdm.tqdm(iterable = df2):
-    line_obj= PhraseVector(line)
-    list1.append(vec1.CombinedSimilarity(line_obj))
-    list2.append(vec1.CosineSimilarity(line_obj))
-    list3.append(vec1.WordNetSimilarity(line_obj))
-    
-list1 = pd.Series(list1).sort_values(ascending=False)
-list2 = pd.Series(list2).sort_values(ascending=False)
-list3 = pd.Series(list3).sort_values(ascending=False)
 
-labels1 = [df2[x]  for x in list1.head(10).index]
-labels2 = [df2[x]  for x in list2.head(10).index]
-labels3 = [df2[x]  for x in list3.head(10).index]
-
-#index_max1 = max(range(len(list1)), key=list1.__getitem__)
-#index_max2 = max(range(len(list2)), key=list2.__getitem__)
-#index_max3 = max(range(len(list3)), key=list3.__getitem__)
-print('Matches for <{}>'.format(vec1))
-print(labels1)
-print(labels2)
-print(labels3)
-"""
 """
 from multiprocessing.pool import ThreadPool as Pool
 global d
@@ -333,7 +311,7 @@ pool.join()
 """
 if __name__ == "__main__":
     d = {}
-    for el in tqdm.tqdm(iterable=df1[:10], ascii = True):
+    for el in tqdm.tqdm(iterable=df1[110:120], ascii = True):
         vec1 = PhraseVector(el)
         list1, list2, list3= [], [], []
         for line in tqdm.tqdm(iterable = df2, ascii = True):
