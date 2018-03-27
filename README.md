@@ -46,6 +46,8 @@ So far this module works with pandas DataFrames hardcoded in the script (I know 
 
 `python test.py`
 
+It will prompt you to choose between Google Word2Vec ('google') and Stanford's GloVe ('glove').
+
 Note that using the data from GloVe with gensim requires additional conversion of the data with:
 
 `python -m gensim.scripts.glove2word2vec --input [GloVe text file] --output glove_conv.txt`
