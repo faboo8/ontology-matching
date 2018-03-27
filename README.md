@@ -48,7 +48,7 @@ So far this module works with pandas DataFrames hardcoded in the script (I know 
 
 It will prompt you to choose between Google's Word2Vec ('google') and Stanford's GloVe ('glove'). A progressbar is also shown for your convenience.
 
-The result is stored as dictionary where the the strings are the keys and the values are dataframes contain the 10 best matches, the similarity score and the corresponding indices.  
+The result is stored in dictionary, pickled and saved on disk. The dictionary ocntains the the strings as the keys and the values are dataframes containing the 5 best matches through CombinedSimilarity, the similarity score and the corresponding indices.  
 
 Note that using the data from GloVe with gensim requires additional conversion of the data with:
 
