@@ -71,6 +71,8 @@ if __name__ == '__main__':
                 break
             except:
                 print('invalid input!')
+        print('\n')
+        print('\n')
         pbar = tqdm.tqdm(total = 100, ascii=True)  
         pool = Pool(os.cpu_count() - 1)     
         for i in range(pbar.total):                     # Create a multiprocessing Pool
