@@ -49,25 +49,24 @@ d = {dict1.get(id): value for document in tf_model[corpus1] for id, value in doc
 
 
 
-def process_ont(el, stored_data):
+def process_ont(el, stored_d):
     vec1 = phsim.PhraseVector(el)
     list1, list2, list3= [], [], []
     #print('Finding matches for {}'.format(vec1.phrase))
     for line in df2:
         line_obj= phsim.PhraseVector(line)
         list1.append(vec1.CombinedSimilarity(line_obj))
-        list2.append(vec1.CosineSimilarity(line_obj))
-        list3.append(vec1.WordNetSimilarity(line_obj))
+        #list2.append(vec1.CosineSimilarity(line_obj))
+        #list3.append(vec1.WordNetSimilarity(line_obj))
     
     list1 = pd.DataFrame(list1, columns= ['sim_score']).sort_values(by ='sim_score', ascending=False).head(5)
-    list2 = pd.DataFrame(list2, columns= ['sim_score']).sort_values(by ='sim_score', ascending=False).head(5)
-    list3 = pd.DataFrame(list3, columns= ['sim_score']).sort_values(by ='sim_score', ascending=False).head(5)
+    #list2 = pd.DataFrame(list2, columns= ['sim_score']).sort_values(by ='sim_score', ascending=False).head(5)
+    #list3 = pd.DataFrame(list3, columns= ['sim_score']).sort_values(by ='sim_score', ascending=False).head(5)
     
     list1['name'] = [df2[x]  for x in list1.index]
-    list2['name'] = [df2[x]  for x in list2.index]
-    list3['name'] = [df2[x]  for x in list3.index]
-    stored_data[el] = [list1, list2, list3]
-    return None
+    #list2['name'] = [df2[x]  for x in list2.index]
+    #list3['name'] = [df2[x]  for x in list3.index]
+    stored_d[el] = list1
     
 def update(*a):
     pbar.update()
@@ -81,12 +80,19 @@ if __name__ == '__main__':
                 break
             except:
                 print('invalid input!')
-        pbar = tqdm.tqdm(total = 6, ascii=True)  
+        pbar = tqdm.tqdm(total = 100, ascii=True)  
         pool = Pool(os.cpu_count() - 1)     
         for i in range(pbar.total):                     # Create a multiprocessing Pool
             pool.apply_async(process_ont, args=(df1[i], stored_d,), callback = update)
         pool.close()
         pool.join()
         pbar.close()
-        with open('filename.pickle', 'wb') as handle:
-            pickle.dump(stored_d, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        print(stored_d)
+        handle = open('ont_data.pickle', 'wb')
+        #stored_d only creates a proxy to the real dict!
+        pickle.dump(dict(stored_d), handle, pickle.HIGHEST_PROTOCOL)
+        handle.close()
+        handle = open('ont_data.pickle', 'rb')
+        data=pickle.load(handle)
+        print(data)
+        #handle.close()
