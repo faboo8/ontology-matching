@@ -159,12 +159,12 @@ class PhraseVector:
             pathToBinVectors = 'C:\\Users\DE104752\\Documents\\word2vec_pretrained\\google.bin'
             print("Loading the data file... Please wait a bit... :)")
             MODEL = KeyedVectors.load_word2vec_format(pathToBinVectors, binary=True)
-            print("Successfully loaded file! Yay! Hazar!")
+            print("Successfully loaded file! Yay!")
         elif sel == 'glove':
             pathToBinVectors = 'C:\\Users\DE104752\\Documents\\word2vec_pretrained\\glove_conv.txt'
             print("Loading the data file... Please wait... this is super slow")
             MODEL = KeyedVectors.load_word2vec_format(pathToBinVectors)
-            print("Successfully loaded file!")    
+            print("Successfully loaded file! Hazar!")    
         return MODEL
         
     

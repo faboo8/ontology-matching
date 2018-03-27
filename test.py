@@ -10,8 +10,9 @@ import pandas as pd
 from gensim import corpora, models
 import tqdm
 import pickle
-from multiprocessing import Pool
+from multiprocessing import Pool, Manager
 import os
+from functools import partial
 
 
 
@@ -45,12 +46,13 @@ dict1 = corpora.Dictionary(document)
 corpus1 = [dict1.doc2bow(text) for text in document]
 tf_model = models.TfidfModel(corpus1, id2word=dict1)
 d = {dict1.get(id): value for document in tf_model[corpus1] for id, value in document}
-global d2
-d2 = {}
-def process_ont(el):
+
+
+
+def process_ont(el, stored_data):
     vec1 = phsim.PhraseVector(el)
     list1, list2, list3= [], [], []
-    print('Finding matches for {}'.format(vec1.phrase))
+    #print('Finding matches for {}'.format(vec1.phrase))
     for line in df2:
         line_obj= phsim.PhraseVector(line)
         list1.append(vec1.CombinedSimilarity(line_obj))
@@ -64,11 +66,27 @@ def process_ont(el):
     list1['name'] = [df2[x]  for x in list1.index]
     list2['name'] = [df2[x]  for x in list2.index]
     list3['name'] = [df2[x]  for x in list3.index]
-    d2[el] = [list1, list2, list3]
-if __name__ == '__main__':
-    sel = input('Do you want to use word vectors from google or glove? \n')
-    MODEL = phsim.PhraseVector.LoadModel(sel)
-    pool = Pool(os.cpu_count() - 1)                         # Create a multiprocessing Pool
-    pool.map(process_ont, df1[:3]) 
-    with open('filename.pickle', 'wb') as handle:
-        pickle.dump(d, handle, protocol=pickle.HIGHEST_PROTOCOL)
+    stored_data[el] = [list1, list2, list3]
+    return None
+    
+def update(*a):
+    pbar.update()
+if __name__ == '__main__':   
+    with Manager() as manager:
+        stored_d = manager.dict()
+        while True:
+            try:
+                sel = input('Do you want to use word vectors from google or glove? \n')
+                MODEL = phsim.PhraseVector.LoadModel(sel)
+                break
+            except:
+                print('invalid input!')
+        pbar = tqdm.tqdm(total = 6, ascii=True)  
+        pool = Pool(os.cpu_count() - 1)     
+        for i in range(pbar.total):                     # Create a multiprocessing Pool
+            pool.apply_async(process_ont, args=(df1[i], stored_d,), callback = update)
+        pool.close()
+        pool.join()
+        pbar.close()
+        with open('filename.pickle', 'wb') as handle:
+            pickle.dump(stored_d, handle, protocol=pickle.HIGHEST_PROTOCOL)
