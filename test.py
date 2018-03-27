@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Fri Mar 23 13:59:49 2018
-
-@author: DE104752
-"""
-
 import phrase_similarity as phsim
 import pandas as pd
 from gensim import corpora, models
@@ -13,10 +6,6 @@ import pickle
 from multiprocessing import Pool, Manager
 import os
 from functools import partial
-
-
-
-
 
 
 df_client = pd.read_excel('ARIBA/Warennummern Englisch.xlsx')
@@ -70,6 +59,8 @@ def process_ont(el, stored_d):
     
 def update(*a):
     pbar.update()
+    
+    
 if __name__ == '__main__':   
     with Manager() as manager:
         stored_d = manager.dict()
