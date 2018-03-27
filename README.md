@@ -44,7 +44,7 @@ This feature is still being implemented and isn't fully functional yet.
 
 So far this module works with pandas DataFrames hardcoded in the script (I know it's not the right way but give me a break..). Save the two lists/ontologies as as dataframe df1 and df2 and run the following command in the terminal:
 
-`python phrase_similarity.py`
+`python test.py`
 
 Note that using the data from GloVe with gensim requires additional conversion of the data with:
 
