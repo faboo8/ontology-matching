@@ -14,7 +14,7 @@ from multiprocessing import Pool
 import os
 
 
-MODEL = phsim.PhraseVector.LoadModel(sel=1)
+
 
 
 
@@ -66,7 +66,9 @@ def process_ont(el):
     list3['name'] = [df2[x]  for x in list3.index]
     d2[el] = [list1, list2, list3]
 if __name__ == '__main__':
+    sel = input('Do you want to use word vectors from google or glove? \n')
+    MODEL = phsim.PhraseVector.LoadModel(sel)
     pool = Pool(os.cpu_count() - 1)                         # Create a multiprocessing Pool
-    pool.map(process_ont, df1) 
+    pool.map(process_ont, df1[:3]) 
     with open('filename.pickle', 'wb') as handle:
         pickle.dump(d, handle, protocol=pickle.HIGHEST_PROTOCOL)

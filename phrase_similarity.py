@@ -154,13 +154,13 @@ class PhraseVector:
 
     
     @staticmethod
-    def LoadModel(sel =1):
-        if sel ==1:
+    def LoadModel(sel ='google'):
+        if sel == 'google':
             pathToBinVectors = 'C:\\Users\DE104752\\Documents\\word2vec_pretrained\\google.bin'
             print("Loading the data file... Please wait a bit... :)")
             MODEL = KeyedVectors.load_word2vec_format(pathToBinVectors, binary=True)
-            print("Successfully loaded file! Yay!")
-        elif sel == 2:
+            print("Successfully loaded file! Yay! Hazar!")
+        elif sel == 'glove':
             pathToBinVectors = 'C:\\Users\DE104752\\Documents\\word2vec_pretrained\\glove_conv.txt'
             print("Loading the data file... Please wait... this is super slow")
             MODEL = KeyedVectors.load_word2vec_format(pathToBinVectors)
@@ -309,6 +309,7 @@ for el in df1:
 pool.close()
 pool.join()
 """
+"""
 if __name__ == "__main__":
     d = {}
     for el in tqdm.tqdm(iterable=df1[110:120], ascii = True):
@@ -329,6 +330,7 @@ if __name__ == "__main__":
         list3['name'] = [df2[x]  for x in list3.index]
         d[el] = [list1, list2, list3]
     print(d)
+"""
 
 '''
 if __name__ == "__main__":
