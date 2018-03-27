@@ -27,7 +27,7 @@ However, pre-trained as well as models trained from texts disregard semantic sim
 The PhraseVector class offers 4 ways to compute the similarity between two phrases:
 * **CosineSimilarity**:  can be seen as a comparison between documents on a normalized space because we’re not taking into the consideration only the magnitude of each word count (tf-idf) of each document, but the 'angle' between the documents.
 * **WordNetSimilarity**: as described above
-* **PhraseCompare**: not yet functional but it will allow the user to input their own model and perform a similarity calculation with the methods from the gensim module.
+* **PhraseCompare**: not yet functional but it will allow the user to input their own model and perform a similarity calculation with the methods from the gensim module. The documentation isn't clear but I guess they use cosine similarity. 
 * **CombinedSimilarity**: computes an averaged similarity measure of CosineSimilarity and WordNetSimilarity. A list can be passed as the weight otherwise [0.8,0.2] will be used. 
 
 ## Building your own model 
