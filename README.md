@@ -48,13 +48,13 @@ So far this module works with pandas DataFrames hardcoded in the script (I know 
 
 *start index* and *end index* are optional and if not specified will be set to 0 and maximum index, respectively. Multiproccesing is supported and the number of logical processors is automatically determined- Multiprocessing is then performed with one less processor to avoid freezing.
 
-So far you can choose between Google's Word2Vec ('google') and Stanford's GloVe ('glove'). If an invalid argument is given, the script will prompt you to enter the model again. A progressbar is also shown for your convenience.
+So far you can choose between Google's Word2Vec ('google') and Stanford's GloVe ('glove'). If an invalid argument is given, the script will prompt you to enter the model again. A progressbar is also shown for convenience.
 
 The result is stored as a dictionary, pickled and saved on disk. The dictionary contains the the strings as the keys and the values are dataframes containing the 5 best matches through CombinedSimilarity, the similarity score and the corresponding indices.  
 
 Note that using the data from GloVe with gensim requires additional conversion of the data with:
 
-`python -m gensim.scripts.glove2word2vec --input [GloVe text file] --output glove_conv.txt`
+`python -m gensim.scripts.glove2word2vec --input [path to GloVe text file] --output glove_conv.txt`
 
 ## Dependencies
 
@@ -64,6 +64,7 @@ gensim 3.4, tqdm 4.19.5, numpy 1.9.3, nltk 3.2.5, pandas 0.22, python 3.63
 
 ## Tasks
 In order of importance:
+- [ ] Use relative instead of absolute file paths
 - [ ] Make use of the different hierarchies of the ontologies
 - [ ] Make user input accessible via terminal
 - [x] Allow for multithreading
