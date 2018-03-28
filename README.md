@@ -44,7 +44,9 @@ This feature is still being implemented and isn't fully functional yet.
 
 So far this module works with pandas DataFrames hardcoded in the script (I know it's not the right way but give me a break..). Save the two lists/ontologies as as dataframe df1 and df2 and run the following command in the terminal:
 
-`python test.py`
+`python main.py <model> [start index] [end index]`
+
+*start index' and *end index* are optional and if not specified will be set to 0 and maximum index, respectively. 
 
 It will prompt you to choose between Google's Word2Vec ('google') and Stanford's GloVe ('glove'). A progressbar is also shown for your convenience.
 
