@@ -3,7 +3,6 @@ warnings.filterwarnings(action='ignore', category=UserWarning, module='gensim')
 warnings.filterwarnings(action='ignore', category= RuntimeWarning, module='numpy')
 from gensim.models import KeyedVectors
 from gensim import corpora, models, similarities
-import tqdm
 
 
 import numpy as np
@@ -148,9 +147,11 @@ def sentence_similarity_symmetric(sentence1, sentence2):
 
 
 class PhraseVector:
-    def __init__(self, phrase):
+    def __init__(self, phrase, MODEL):
+        self.MODEL = MODEL
         self.vector = self.PhraseToVec(phrase)
         self.phrase =phrase
+        
 
     
     @staticmethod
@@ -180,7 +181,7 @@ class PhraseVector:
             ignore_vectorSet= []
             for word in ignore:
                 try:
-                    wordVector=MODEL[word]
+                    wordVector=self.MODEL[word]
                     ignore_vectorSet.append(wordVector)
                 except:
                     pass
@@ -199,7 +200,7 @@ class PhraseVector:
         vectorSet = []
         for aWord in wordsInPhrase:
             try:
-                wordVector=MODEL[aWord]
+                wordVector=self.MODEL[aWord]
                 vectorSet.append(wordVector)
             except:
                 pass
