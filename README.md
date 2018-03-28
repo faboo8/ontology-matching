@@ -46,7 +46,7 @@ So far this module works with pandas DataFrames hardcoded in the script (I know 
 
 `python main.py <model> [start index] [end index]`
 
-*start index' and *end index* are optional and if not specified will be set to 0 and maximum index, respectively. 
+*start index* and *end index* are optional and if not specified will be set to 0 and maximum index, respectively. 
 
 So far you can choose between Google's Word2Vec ('google') and Stanford's GloVe ('glove'). If an invalid argument is given, the script will prompt you to enter the model again. A progressbar is also shown for your convenience.
 
