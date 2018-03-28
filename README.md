@@ -48,7 +48,7 @@ So far this module works with pandas DataFrames hardcoded in the script (I know 
 
 *start index' and *end index* are optional and if not specified will be set to 0 and maximum index, respectively. 
 
-It will prompt you to choose between Google's Word2Vec ('google') and Stanford's GloVe ('glove'). A progressbar is also shown for your convenience.
+So far you can choose between Google's Word2Vec ('google') and Stanford's GloVe ('glove'). If an invalid argument is given, the script will prompt you to enter the model again. A progressbar is also shown for your convenience.
 
 The result is stored as a dictionary, pickled and saved on disk. The dictionary contains the the strings as the keys and the values are dataframes containing the 5 best matches through CombinedSimilarity, the similarity score and the corresponding indices.  
 
