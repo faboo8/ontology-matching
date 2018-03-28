@@ -19,7 +19,7 @@ To determine similarity between two phrases the cosine similarity
 </p>
 
 
-is used although this might not be the best for probabilistic models. 
+is used although this might not be the best for probabilistic models (relevant for self-built models).
 
 However, pre-trained as well as models trained from texts disregard semantic similarity e.g. cat <-> feline. Thus a similarity measure using [WordNet](https://wordnet.princeton.edu/) is implemented. So far I'm using a maximum similarity approach using the Wu & Palmer similarity (more info [here](http://search.cpan.org/dist/WordNet-Similarity/lib/WordNet/Similarity/wup.pm)) since it worked well with the data I'm working on. In the future I want to use the weights from the inverse document frequency (similar to [here](https://nlpforhackers.io/tf-idf/)) but I haven't worked out the kinks yet.
 
