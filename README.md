@@ -5,8 +5,11 @@
   <img src="https://github.com/faboo8/ontology-matching/blob/master/media/0.jpg" alt="sign"/>
 </p>
   
-**Idea**: 
+  
 [currently not functional because I'm rewriting thze multiprocessing]
+
+
+**Idea**: 
 I have two ontologies (or more general two lists) and want to match the entries from the first to the second. In order to do this, I pass an entry from one and calculate the similarity to all the ones from the other. The goal is to have an *n*:1 matching with minimal user input. A threshold for the similarity shall be defined under which additional user input is required (that should be dependent on how likely the next best matches are).
 
 With this module you can use pre-trained model or - if you have enough data - generate your own from scratch. A collection of recommended ready-to-use models can be found [here](http://ahogrammer.com/2017/01/20/the-list-of-pretrained-word-embeddings). Per default Google's Word2Vec model is used. 
