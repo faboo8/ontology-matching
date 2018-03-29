@@ -6,7 +6,7 @@
 </p>
   
   
-[currently not functional because I'm rewriting thze multiprocessing]
+[currently not functional because I'm rewriting the multiprocessing]
 
 
 **Idea**: 
