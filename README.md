@@ -6,7 +6,6 @@
 </p>
   
   
-[currently not functional because I'm rewriting the multiprocessing]
 
 
 **Idea**: 
