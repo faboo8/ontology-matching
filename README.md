@@ -67,7 +67,7 @@ gensim 3.4, tqdm 4.19.5, numpy 1.9.3, nltk 3.2.5, pandas 0.22, python 3.63
 
 ## Tasks
 In order of importance:
-- [ ] Use relative instead of absolute file paths
+- [x] Use relative instead of absolute file paths
 - [ ] Make use of the different hierarchies of the ontologies
 - [x] Make user input accessible via terminal (sorta)
 - [x] Allow for multithreading
