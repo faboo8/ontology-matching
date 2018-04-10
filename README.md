@@ -48,9 +48,9 @@ This feature is still being implemented and isn't fully functional yet.
 
 So far this module works with pandas DataFrames hardcoded in the script (I know it's not the right way but give me a break..). Save the two lists/ontologies as as dataframe *df1* and *df2* and run the following command in the terminal:
 
-`python main.py <model> [start index] [end index]`
+`python main2.py <model> [start index] [end index]`
 
-*start index* and *end index* are optional and if not specified will be set to 0 and maximum index, respectively. Multiproccesing is supported and the number of logical processors is automatically determined- Multiprocessing is then performed with one less processor to avoid freezing.
+*start index* and *end index* are optional and if not specified will be set to 0 and maximum index, respectively. Multiproccesing is supported and the number of logical processors is automatically determined. Multiprocessing is then performed with one less processor than available to avoid freezing.
 
 So far you can choose between Google's Word2Vec ('google') and Stanford's GloVe ('glove'). If an invalid argument is given, the script will prompt you to enter the model again. A progressbar is also shown for convenience.
 
