@@ -61,7 +61,7 @@ Note that using the data from GloVe with gensim requires additional conversion o
 
 ## Dependencies
 
-Tested with:
+Tested on stupid Windows 8 with:
 gensim 3.4, tqdm 4.19.5, numpy 1.9.3, nltk 3.2.5, pandas 0.22, python 3.63
 
 
