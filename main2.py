@@ -54,6 +54,7 @@ def worker_test(el,stored_d,vec2_list,index):
     list1['name'] = [df2[x]  for x in list1.index]
 
     stored_d[index] = list1
+    print('\n')
     return list1
 
     
@@ -80,7 +81,7 @@ if __name__ == '__main__':
         
         while True:
             try:
-                sel = args.input1
+                sel = args.model
                 MODEL = PhraseVector.LoadModel(sel)
                 break
             except:
@@ -88,24 +89,24 @@ if __name__ == '__main__':
                 sel = input('Do you want to use word vectors from google or glove? \n')
                 MODEL = PhraseVector.LoadModel(sel)
                 break
-        print('\n')
-        vec1_list = [PhraseVector(el, MODEL) for el in df1][:30]
+            
+        vec1_list = [PhraseVector(el, MODEL) for el in df1]
         vec2_list = [PhraseVector(el, MODEL) for el in df2]
         MODEL = None
         
-        total = args.input3-args.input2
+        total = args.end-args.start
         pbar = tqdm.tqdm(total = total, ascii=True)  
         pool = Pool(processes=os.cpu_count() - 1, maxtasksperchild=1000)
         
-        for i in range(args.input2,args.input3):   
-            pool.apply_async(worker_test, args=(vec1_list[i],stored_d,vec2_list,i), callback = update)
+        for i in range(args.start,args.end):   
+            pool.apply_async(worker_test, args=(vec1_list[i],stored_d,vec2_list,i,), callback = update)
             
         pool.close()
         pool.join()
         pbar.close()
         #print(stored_d)
         
-        handle = open('ont_data{}_{}.pickle'.format(args.input2, args.input3), 'wb')
+        handle = open('ont_data{}_{}.pickle'.format(args.start, args.end), 'wb')
         
         #stored_d only creates a proxy to the real dict!
         pickle.dump(dict(stored_d), handle, pickle.HIGHEST_PROTOCOL)
