@@ -147,10 +147,12 @@ def sentence_similarity_symmetric(sentence1, sentence2):
 
 
 class PhraseVector:
-    def __init__(self, phrase, MODEL):
+    def __init__(self, phrase, MODEL, flush=True):
         self.MODEL = MODEL
         self.vector = self.PhraseToVec(phrase)
         self.phrase =phrase
+        if flush == True:
+            self.MODEL = None
         
 
     
@@ -187,6 +189,9 @@ class PhraseVector:
                     pass
             #stimmt das so?
             return np.dot(np.transpose(vectorSet),ignore_vectorSet)/sum(ignore)
+        
+    def flush_model(self):
+        self.MODEL = None
         
     def PhraseToVec(self, phrase):
         cachedStopWords = stopwords.words("english")
