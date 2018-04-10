@@ -4,7 +4,6 @@ from gensim import corpora, models
 import tqdm
 import pickle
 from multiprocessing import Pool, Manager
-import os
 import argparse
 from functools import partial
 

@@ -5,7 +5,7 @@ from phrase_similarity import PhraseVector
 import pandas as pd
 import tqdm
 import pickle
-from multiprocessing import Pool, Manager, freeze_support
+from multiprocessing import Pool, Manager
 import os
 import argparse
 
