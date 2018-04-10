@@ -49,7 +49,7 @@ So far this module works with pandas DataFrames hardcoded in the script (I know 
 
 `python main2.py <model> [start index] [end index]`
 
-*start index* and *end index* are optional and if not specified will be set to 0 and maximum index, respectively. Multiproccesing is supported and the number of logical processors is automatically determined. Multiprocessing is then performed with one less processor than available to avoid freezing. The information of the underlying model is deleted to avoid oberflow in memory.
+*start index* and *end index* are optional and if not specified will be set to 0 and maximum index, respectively. Multiproccesing is supported and the number of logical processors is automatically determined. Multiprocessing is then performed with one less processor than available to avoid freezing. The information of the underlying model is deleted to avoid overflow in memory.
 
 So far you can choose between Google's Word2Vec ('google') and Stanford's GloVe ('glove'). If an invalid argument is given, the script will prompt you to enter the model again. A progressbar is also shown for convenience.
 
