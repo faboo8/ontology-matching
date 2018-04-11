@@ -90,12 +90,14 @@ if __name__ == '__main__':
                 MODEL = PhraseVector.LoadModel(sel)
                 break
             
-        vec1_list = [PhraseVector(el, MODEL) for el in df1]
-        vec2_list = [PhraseVector(el, MODEL) for el in df2]
+        vec1_list = [PhraseVector(el, MODEL, flush=True) for el in df1]
+        vec2_list = [PhraseVector(el, MODEL, flush=True) for el in df2]
+        ##free up memory
         MODEL = None
         
         total = args.end-args.start
         pbar = tqdm.tqdm(total = total, ascii=True)  
+        
         pool = Pool(processes=os.cpu_count() - 1, maxtasksperchild=1000)
         
         for i in range(args.start,args.end):   
@@ -103,13 +105,14 @@ if __name__ == '__main__':
             
         pool.close()
         pool.join()
+        
         pbar.close()
-        #print(stored_d)
         
         handle = open('ont_data{}_{}.pickle'.format(args.start, args.end), 'wb')
         
         #stored_d only creates a proxy to the real dict!
         pickle.dump(dict(stored_d), handle, pickle.HIGHEST_PROTOCOL)
+        
         handle.close()
         
 #handle = open('ont_data.pickle', 'rb')

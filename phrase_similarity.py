@@ -82,11 +82,14 @@ df2_as_list = ''
 for entry in df2:
     df2_as_list += ' ' + entry
 
+##for tfid
 
 pd_full = pd.concat([df1,df2])
 
 document = preprocessing_doc(pd_full)
+
 #document = [[y for x in document for y in x]]
+
 dict1 = corpora.Dictionary(document)
 corpus1 = [dict1.doc2bow(text) for text in document]
 tf_model = models.TfidfModel(corpus1, id2word=dict1)
@@ -140,8 +143,6 @@ def sentence_similarity(sentence1, sentence2):
 
 def sentence_similarity_symmetric(sentence1, sentence2):
     return (sentence_similarity(sentence1, sentence2) + sentence_similarity(sentence2, sentence1))/2.0 
-
-
 
 
 
