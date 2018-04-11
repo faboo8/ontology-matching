@@ -45,7 +45,7 @@ This feature is still being implemented and isn't fully functional yet.
 
 ## How to use
 
-So far this module works with pandas DataFrames hardcoded in the script (I know it's not the right way but give me a break..). Save the two lists/ontologies as as dataframe *df1* and *df2* and run the following command in the terminal:
+So far this module works with pandas DataFrames hardcoded in the script (I know it's not the right way but give me a break..). You'll also need to download the models manually. Save the two lists/ontologies as as dataframe *df1* and *df2* and run the following command in the terminal:
 
 `python main2.py <model> [start index] [end index]`
 
