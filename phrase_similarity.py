@@ -62,7 +62,7 @@ def preprocessing_phrase(phrase):
     wordsInPhrase = [word for word in phrase.split() if word not in cachedStopWords]
     return wordsInPhrase, phrase
 
-
+"""
 
 df_client = pd.read_excel('ARIBA/Warennummern Englisch.xlsx')
 df1 = df_client['DESCRIP']
@@ -94,7 +94,7 @@ dict1 = corpora.Dictionary(document)
 corpus1 = [dict1.doc2bow(text) for text in document]
 tf_model = models.TfidfModel(corpus1, id2word=dict1)
 d = {dict1.get(id): value for document in tf_model[corpus1] for id, value in document}
-
+"""
 ##############################################################################
 ##############################################################################
 ##############################################################################
@@ -152,11 +152,11 @@ class PhraseVector:
         self.MODEL = MODEL
         self.vector = self.PhraseToVec(phrase)
         self.phrase =phrase
+        ##safe RAM!
         if flush == True:
             self.MODEL = None
         
-
-    
+T
     @staticmethod
     def LoadModel(sel ='google'):
         if sel == 'google':
@@ -251,6 +251,7 @@ class PhraseVector:
             
 #### document = [[word1, word2,....], [vword1, vword2,...],...]   
 ###do pre-processing first!!!!!
+        
 class BuildModel:
     def __init__(self, document):
         self.dict=  corpora.Dictionary(document)
