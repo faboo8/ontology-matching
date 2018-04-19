@@ -13,7 +13,7 @@ I have two ontologies (or more general two lists) and want to match the entries 
 
 With this module you can use pre-trained model or - if you have enough data - generate your own from scratch. A collection of recommended ready-to-use models can be found [here](http://ahogrammer.com/2017/01/20/the-list-of-pretrained-word-embeddings). Per default Google's Word2Vec model is used. 
 
-SO far the code is very specific to my case but I plan to generalize it. Note that I achieved vast speed improvement by using the hierarchies as layers.
+SO far the code is very specific to my case but I plan to generalize it. Note that I achieved vast speed improvement by using the hierarchies as layers. This, however, increases the error.
 
 ## Computing similarities
 
@@ -71,7 +71,7 @@ gensim 3.4, tqdm 4.19.5, numpy 1.9.3, nltk 3.2.5, pandas 0.22, python 3.63
 In order of importance:
 - [x] Fix overflow issues
 - [x] Use relative instead of absolute file paths
-- [ ] Make use of the different hierarchies of the ontologies
+- [x] Make use of the different hierarchies of the ontologies
 - [x] Make user input accessible via terminal (sorta)
 - [x] Allow for multiprocessing
 - [ ] Define a procedure to determine the 'best' weights for CombinedSimilarity (training set needed)
