@@ -1,4 +1,4 @@
-# ontology-matching
+# Semantic and probalistic approach to Ontology Matching
 
 
 <p align="center">
