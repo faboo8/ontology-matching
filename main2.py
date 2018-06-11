@@ -87,21 +87,23 @@ def worker_test_hierarchical(el,stored_d,segment, family, classes, commodities, 
     vec1 = el
     
     
-    segment['score'] = segment['pv'].apply(lambda x: vec1.CombinedSimilarity(x, weights = [0.8,0.2]))
-    list_score_seg = pd.DataFrame(segment).sort_values(by='score',ascending=False).head(2)['code']
+    segment['score'] = segment['pv'].apply(lambda x: vec1.CombinedSimilarity(x, weights = [0.6,0.4]))
+    list_score_seg = pd.DataFrame(segment).sort_values(by='score',ascending=False).head(10)['code']
     #max_seg = segment.loc[segment['score'].idxmax()]['code']
     #max_seg_second = 
     
-    _family = family[family['code'].apply(lambda x: (int(str(x)[:2]) == list_score_seg.iloc[0]) or  (int(str(x)[:2]) == list_score_seg.iloc[1]))]
+    _family = family[family['code'].apply(lambda x: int(str(x)[:2]) in list_score_seg.values)]
     _family['score'] = _family['pv'].apply(lambda x: vec1.CombinedSimilarity(x, weights = [0.8,0.2]))
-    max_fam =  _family.loc[_family['score'].idxmax()]['code']
+    list_score_fam = pd.DataFrame(_family).sort_values(by='score',ascending=False).head(8)['code']
+    #max_fam =  _family.loc[_family['score'].idxmax()]['code']
     
     
-    _classes = classes[classes['code'].apply(lambda x: int(str(x)[:4]) ==max_fam)]
+    _classes = classes[classes['code'].apply(lambda x: int(str(x)[:4]) in list_score_fam.values)]
     _classes['score'] = _classes['pv'].apply(lambda x: vec1.CombinedSimilarity(x, weights = [0.8,0.2]))
-    max_clas =  _classes.loc[_classes['score'].idxmax()]['code']
+    list_score_clas = pd.DataFrame(_classes).sort_values(by='score',ascending=False).head(5)['code']
+    #max_clas =  _classes.loc[_classes['score'].idxmax()]['code']
 
-    _commodities = commodities[commodities['code'].apply(lambda x: int(str(x)[:6]) ==max_clas)]
+    _commodities = commodities[commodities['code'].apply(lambda x: int(str(x)[:6]) in list_score_clas.values)]
     _commodities['score'] = _commodities['pv'].apply(lambda x: vec1.CombinedSimilarity(x, weights = [0.8,0.2]))
     max_com =  _commodities.loc[_commodities['score'].idxmax()]
 
