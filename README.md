@@ -47,7 +47,7 @@ This feature is NOT functional yet.
 
 ## How to use
 
-So far this module works with pandas DataFrames hardcoded in the script (I know it's not the right way but give me a break..). You'll also need to download the models manually. Save the two lists/ontologies as as dataframe *df1* and *df2* and run the following command in the terminal:
+So far this module works with pandas DataFrames hardcoded in the script. You'll also need to download the models manually. Save the two lists/ontologies as as dataframe *df1* and *df2* and run the following command in the terminal:
 
 `python main2.py <model> [start index] [end index]`
 
@@ -63,7 +63,7 @@ Note that using the data from GloVe with gensim requires additional conversion o
 
 ## Dependencies
 
-Tested on stupid Windows 8 with:
+Tested on Windows 8 with:
 gensim 3.4, tqdm 4.19.5, numpy 1.9.3, nltk 3.2.5, pandas 0.22, python 3.63
 
 
