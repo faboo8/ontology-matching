@@ -13,7 +13,7 @@ Given two ontologies (or more general two lists) that one wants to 'cross-match'
 
 With this module you can use pre-trained model or - if you have enough data - generate your own from scratch. A collection of recommended ready-to-use models can be found [here](http://ahogrammer.com/2017/01/20/the-list-of-pretrained-word-embeddings). Per default Google's Word2Vec model is used. 
 
-So far the code is very specific to my case but I plan to generalize it. Note that I achieved vast speed improvement by using the hierarchies as layers. This, however, increases the error.
+So far the code is very specific to my case but I plan to generalize it. Note that I achieved vast speed improvement by using the hierarchies as layers. This, however, increases the error. For data privacy reasons I can nbo post the original data I used.
 
 ## Computing similarities
 
