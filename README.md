@@ -9,7 +9,7 @@
 
 
 **Idea**: 
-I have two ontologies (or more general two lists) and want to match the entries from the first to the second. In order to do this, I pass an entry from one and calculate the similarity to all the ones from the other. The goal is to have an *n*:1 matching with minimal user input. A threshold for the similarity shall be defined under which additional user input is required (that should be dependent on how likely the next best matches are).
+Given two ontologies (or more general two lists) that one wants to 'cross-match' i.e. matching the the entries from the first to the second. In order to do this, I pass an entry from one and calculate the similarity to all** the ones from the other. The goal is to have an *n*:1 matching with minimal user input. A threshold for the similarity shall be defined under which additional user input is required (that should be dependent on how likely the next best matches are).
 
 With this module you can use pre-trained model or - if you have enough data - generate your own from scratch. A collection of recommended ready-to-use models can be found [here](http://ahogrammer.com/2017/01/20/the-list-of-pretrained-word-embeddings). Per default Google's Word2Vec model is used. 
 
@@ -43,7 +43,7 @@ There's several options available to build your own model based on a term-freque
 * Latent Dirichlet Allocation (LDA)
 * Hierarchical Dirichlet Process (HDP)
 
-This feature is still being implemented and isn't fully functional yet. 
+This feature is NOT functional yet. 
 
 ## How to use
 
